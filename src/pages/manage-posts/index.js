@@ -5,7 +5,7 @@ import { ManagePosts } from "/src/modules";
 
 const PostsPage = () => {
   return (
-    <Page className="">
+    <Page>
       <ManagePosts />
     </Page>
   );

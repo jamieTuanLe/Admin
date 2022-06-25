@@ -5,7 +5,7 @@ import { ManageVerify } from "/src/modules";
 
 const PostsPage = () => {
   return (
-    <Page className="">
+    <Page>
       <ManageVerify />
     </Page>
   );
