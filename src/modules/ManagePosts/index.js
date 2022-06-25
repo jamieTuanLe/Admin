@@ -1,58 +1,136 @@
-import React, { useMemo} from 'react'
+import React, { useMemo, useState} from 'react'
 import CustomeTable from '/src/components/CustomeTable'
-import CreateButton from '/src/components/CreateButton'
+import ModalDelete from '/src/components/Modal/Delete'
+import { toast } from 'react-toastify'
 
 import { StatusCell, TimeCell, ActionCell, STTCell } from '/src/components/RenderColumn'
 
 import * as S from './styles'
 
+const data = [
+  {
+    _id: 1,
+    idBDS: "BDS001",
+    idPost: "BD001",
+    createdAt: "25-06-2022",
+    verify: "active",
+    status: "active",
+  },
+  {
+    _id: 2,
+    idBDS: "BDS002",
+    idPost: "BD002",
+    createdAt: "25-06-2022",
+    verify: "inactive",
+    status: "active",
+  },
+  {
+    _id: 3,
+    idBDS: "BDS003",
+    idPost: "BD003",
+    createdAt: "25-06-2022",
+    verify: "active",
+    status: "active",
+  },
+  {
+    _id: 4,
+    idBDS: "BDS004",
+    idPost: "BD004",
+    createdAt: "25-06-2022",
+    verify: "inactive",
+    status: "inactive",
+  },
+  {
+    _id: 5,
+    idBDS: "BDS005",
+    idPost: "BD005",
+    createdAt: "25-06-2022",
+    verify: "inactive",
+    status: "inactive",
+  },
+  {
+    _id: 6,
+    idBDS: "BDS006",
+    idPost: "BD006",
+    createdAt: "25-06-2022",
+    verify: "active",
+    status: "active",
+  },
+  {
+    _id: 7,
+    idBDS: "BDS007",
+    idPost: "BD007",
+    createdAt: "25-06-2022",
+    verify: "active",
+    status: "active",
+  },
+];
+
 export const ManagePosts = () => {
-  const data = useMemo(() => [], [])
+  const [openModal, setOpenModal] = useState(false)
+  const [detail, setDetail] = useState(false)
+  const [newData, setNewData ] = useState(data)
+
+  const onOpenModalDelete = (id) => setOpenModal(id)
+  const onNoDeleteModal = () => setOpenModal(false)
+  const onOpenModalDetail = (id) => setDetail(id)
+
+  const handleDeletePost = (id) => {
+    setNewData((prev) => prev.filter((item) => item._id !== id))
+    onNoDeleteModal();
+    toast.success("DELETE SUCCESS");
+  }
+
   const columns = useMemo(
     () => [
       {
-        Header: "Partner",
-        accessor: "title",
-        Cell: ({ row }) => (
-          <FeedCell
-            options={{ thumbnail: row?.original.logo, title: row?.original.name }}
-            config={{ size: "45px"}}
-          />
-        )
+        Header: "STT",
+        accessor: "stt",
+        Cell: ({ row }) => (<STTCell row={row} />),
       },
       {
-        Header: "ID",
-        accessor: "_id",
+        Header: "Mã BDS",
+        accessor: "idBDS",
       },
       {
-        Header: "Status",
-        accessor: "status",
+        Header: "Mã bài đăng",
+        accessor: "idPost",
+      },
+      {
+        Header: "Thời gian",
+        accessor: "createdAt",
+        Cell: ({value}) => <TimeCell options={{day: value}} />,
+      },
+      {
+        Header: "Trạng thái xác minh",
+        accessor: "verify",
         Cell: ({ value }) => (
           <StatusCell value={value} options={[
-            {type: "active", color: "successColor", text: "Active"},
-            {type: "inactive", color: "failedColor", text: "Block"},
+            {type: "active", color: "successColor", text: "Đã xác minh"},
+            {type: "inactive", color: "failedColor", text: "Chưa xác minh"},
           ]} />
         )
       },
       {
-        Header: "Create At",
-        accessor: "createdAt",
-        Cell: ({value}) => <TimeCell options={{day: value, hour: value}} />,
+        Header: "Trạng thái bài đăng",
+        accessor: "status",
+        Cell: ({ value }) => (
+          <StatusCell value={value} options={[
+            {type: "active", color: "successColor", text: "Đã duyệt"},
+            {type: "inactive", color: "failedColor", text: "Chưa duyệt"},
+          ]} />
+        )
       },
       {
-        Header: "Update At",
-        accessor: "updateAt",
-        Cell: ({value}) => <TimeCell options={{day: value, hour: value}} />,
-      },
-      {
-        Header: "",
+        Header: "Chức năng",
         accessor: "_id",
         id: "action",
-        Cell: ({ value }) => (
-          <ActionCell 
-            value={value}
+        Cell: ({ row }) => (
+          <ActionCell
+            idAction={row?.index}
+            value={row?.original._id}
             config={[
-              {action: "Update", method: () => onChangePageUpdate(value)},
+              {action: "Xóa bài đăng", method: () => onOpenModalDelete(row?.original._id)},
             ]}
           />
         )
@@ -66,7 +144,6 @@ export const ManagePosts = () => {
       <S.Wrapper>
         <S.Top>
           <S.Title>Quản lý bài đăng</S.Title>
-          <CreateButton name="Tạo" />
         </S.Top>
 
         <S.Content>
@@ -76,12 +153,20 @@ export const ManagePosts = () => {
           <S.CustomeTableWrapper>
             <CustomeTable
               columns={columns}
-              data={data}
+              data={newData ? newData : data}
               checkBox={false}
             />
           </S.CustomeTableWrapper>
         </S.Content>
       </S.Wrapper>
+      {openModal && (
+        <ModalDelete 
+          toggle={openModal}
+          onNo={() => onNoDeleteModal()}
+          nameModal="Xóa bài đăng"
+          handleDelete={(id) => handleDeletePost(id)}
+        />
+      )}
     </>
   )
 };

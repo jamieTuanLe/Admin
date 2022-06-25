@@ -8,13 +8,7 @@ const TimeCell = ({options}) => {
   return (
     <>
       {options.hasOwnProperty('day') && (
-        <S.DayOff>{formatDateTime(options.day)}</S.DayOff>
-      )}
-      {options.hasOwnProperty('hour') && (
-        <S.TimeOff>{formatDateTime(options.hour, "h:mm A")}</S.TimeOff>
-      )}
-      {options.hasOwnProperty('more') && (
-        <S.More>{options.more}</S.More>
+        <S.DayOff>{options.day}</S.DayOff>
       )}
     </>
   )

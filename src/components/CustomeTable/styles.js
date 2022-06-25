@@ -15,16 +15,16 @@ export const TableWrapper = styled.div`
           line-height: 18px;
           color: #9fa2b4;
           font-weight: 600;
-          text-align: left;
+          text-align: center;
           letter-spacing: 0.2px;
           padding: 1rem 0;
 
           &:first-child {
-            text-align: left;
+            text-align: center;
             /* padding-right: 20px; */
           }
           &:nth-child(2) {
-            text-align: left;
+            text-align: center;
             padding-left: 20px;
           }
           /* &:last-child {
@@ -39,17 +39,17 @@ export const TableWrapper = styled.div`
         td {
           font-size: 14px;
           line-height: 20px;
-          text-align: left;
+          text-align: center;
           letter-spacing: 1.2px;
           color: #252733;
           padding: 2rem 0;
 
           &:first-child {
-            text-align: left;
+            text-align: center;
           }
           &:nth-child(2) {
             padding-left: 20px;
-            text-align: left;
+            text-align: center;
             max-width: 300px;
           }
           &:nth-child(6) {

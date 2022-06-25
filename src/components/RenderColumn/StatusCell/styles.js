@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const Status = styled.div`
-  width: 84px;
-  height: 24px;
-  border-radius: 12px;
+  width: 120px;
+  height: 30px;
+  border-radius: 15px;
   color: #ffffff;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;

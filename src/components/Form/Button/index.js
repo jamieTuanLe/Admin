@@ -1,8 +1,6 @@
 import React from "react";
 
 import * as S from "./styles";
-import LoadingButton from "/src/components/LoadingButton";
-
 const Button = ({ children, loading, className, ...rest }) => {
   return (
     <S.Button
@@ -11,7 +9,7 @@ const Button = ({ children, loading, className, ...rest }) => {
       className={className}
       {...rest}
     >
-      {loading ? <LoadingButton /> : children}
+      {children}
     </S.Button>
   );
 };

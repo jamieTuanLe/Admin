@@ -4,23 +4,22 @@ import OptionButton from "/public/svgs/optionbutton";
 
 import * as S from "./styles"
 
-const ActionCell = ({ value, config }) => {
+const ActionCell = ({ idAction, value, config }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = useCallback((prevState) => {
     setToggle(!prevState);
   }, []);
-
   return (
     <>
       <S.ActionIndicator
-        id={`action-${value}`}
+        id={`action-${idAction}`}
       >
         <OptionButton />
 
         <Popover
           toggle={toggle}
           onToggle={() => handleToggle(toggle)}
-          target={`action-${value}`}
+          target={`action-${idAction}`}
           placement="right"
         >
           {config?.map((option, index) => (
